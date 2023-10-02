@@ -1,15 +1,17 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './Profile.css'
 import Item from './Item';
 import {
   Link
 } from "react-router-dom";
+import { UserContext } from '../UserContext';
 
 export default function Profile() {
   const passwords=[
     {note: "gfg", password: "cnkejrnkbfub"},
     {note: "lc", password:"bchbeyciebi"},
   ]
+  const {userInfo}= useContext(UserContext);
   const username= null;
   return (
     <>

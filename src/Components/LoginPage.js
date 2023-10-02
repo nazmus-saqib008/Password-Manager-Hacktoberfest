@@ -1,16 +1,55 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import './UserPage.css'
+import { UserContext } from "../UserContext";
+// import {Navigate} from 'react-router-dom'
+import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
 export default function LoginPage(){
     const [username, setUsername]= useState("");
     const [password, setPassword]= useState("");
+    const [redirect, setRedirect]= useState(false);
+
+    const {setUserInfo} = useContext(UserContext);
+
+    async function login(ev){
+        console.log("button clicked");
+        ev.preventDefault();
+        const response= await fetch('http://localhost:4000/login',{
+            method:"POST",
+            mode: "cors",
+            body: JSON.stringify({username, password}),
+            headers: {"Content-Type": "application/json"},
+            credentials: 'include'
+        })
+        if(response.ok){
+            alert("login successful")
+            response.json().then(userInfo=>{
+                setUserInfo(userInfo);
+            })
+            setRedirect(true);
+        }else{
+            alert("wrong credentials")
+        }
+    }
+    if(redirect){
+        return <Redirect to={'/'}/>
+    }
     return(
 
     <div className="userpage">
         <h1>Login</h1>
-        <form className="userform">
-            <input type="text" placeholder="username" value={username}/>
-            <input type="password" placeholder="password" value={password} />
+        <form className="userform" onSubmit={login}>
+            <input type="text" placeholder="username"
+            value={username} 
+            onChange={(ev)=>{
+                setUsername(ev.target.value)
+            }}/>
+            <input type="password" 
+            placeholder="password" 
+            value={password} 
+            onChange={(ev)=>{
+                setPassword(ev.target.value)
+            }}/>
             <button type="submit">Login</button>
         </form>
     </div>
