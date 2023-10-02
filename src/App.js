@@ -11,23 +11,33 @@ import {
   Link,
   Routes
 } from "react-router-dom";
+import { UserContextprovider } from './UserContext';
+import LoginPage from './Components/LoginPage';
+import RegisterPage from './Components/RegisterPage';
 
 function App() {
   return (
-    <Router>
-
-      <div className="App">
-        <Switch>
-          <Route exact path='/'>
-            <Navbar/>
-            <Form/>
-          </Route>
-          <Route exact path='/profile'>
-            <Profile/>
-          </Route>
-        </Switch>
-      </div>
-    </Router>
+    <UserContextprovider>
+      <Router>
+        <div className="App">
+          <Switch>
+            <Route exact path='/'>
+              <Navbar/>
+              <Form/>
+            </Route>
+            <Route exact path='/profile'>
+              <Profile/>
+            </Route>
+            <Route exact path='/login'>
+              <LoginPage/>
+            </Route>
+            <Route exact path='/signup'>
+              <RegisterPage/>
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+    </UserContextprovider>
   );
 }
 
