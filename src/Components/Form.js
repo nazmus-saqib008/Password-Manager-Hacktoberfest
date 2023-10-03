@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './Form.css'
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { UserContext } from '../UserContext';
 
 function Form() {
     const [smallLetter, setSmallLetter] = useState("");
@@ -8,6 +10,11 @@ function Form() {
     const [numbers, setNumbers] = useState("");
     const [passLength, setPassLength] = useState(9);
     const [final, setFinal] = useState("");
+
+    const [title, setTitle]= useState("");
+    const [summary, setSummary]= useState("");
+
+
     function smallLetterSet(){
         smallLetter===""?setSmallLetter("abcdefghijklmnopqrstuvwxyz"):setSmallLetter("");
         console.log("button clicked");
@@ -40,7 +47,25 @@ function Form() {
         setFinal(shortPass+passWord);
     }
 
+    const {userInfo, setUserInfo}= useContext(UserContext);
 
+    useEffect(()=>{
+        fetch('http://localhost:4000/profile',{
+            method: 'GET',
+            credentials: 'include',
+        }).then(response=>{
+            response.json().then(info=>{
+            setUserInfo(info);
+            console.log(info);
+            })
+        })
+        },[])
+
+    function savePass(){
+
+    }
+
+    const user= userInfo?.username;
     return (
         <div className='req-form'>
             <div className="card border-primary mb-3 my-4 mx-5 text-start">
@@ -71,16 +96,32 @@ function Form() {
             </div>
             <div>
                 <button type="button" onClick={GeneratePassword} className="btn btn-warning">Generate</button>
-                <div className="input-group">
-                    <span id='textToBeCopied' className="form-control my-4 mx-2">{final}</span>
+                <form className='pass-form' onSubmit={savePass}>
+                    <input type="text" className='form-inp' id='finPass' value={final} readOnly/>
+                    <input type="text"
+                        className='form-inp'
+                        value={title}
+                        placeholder='add title'
+                        onChange={(ev)=>{
+                            setTitle(ev.target.value)
+                        }}/>
+                    <textarea rows={5}
+                        className='form-inp'
+                        value={summary} 
+                        placeholder='add note (if any)'
+                        onChange={(ev)=>{
+                            setSummary(ev.target.value)
+                        }}/>
+                    {user && (
+                        <button type='submit'>Save</button>
 
-                    {/* feature to be added later */}
-                    <button type="button" className="btn btn-success my-4 mx-1" onClick={()=>{
-                        alert("Sorry! This Feature is not Available Yet")
-                    }}>Copy to Clipboard</button>
-
-
-                </div>
+                    )}
+                    {!user && (
+                        <Link to={'/login'}>
+                            Sign In First
+                        </Link>
+                    )}
+                </form>
 
             </div>
             <div>
