@@ -10,7 +10,8 @@ export default function Profile() {
   //   {note: "lc", password:"bchbeyciebi"},
   // ]
   const {userInfo}= useContext(UserContext);
-  const [passwords, setPasswords]= useState([])
+  const [passwords, setPasswords]= useState([]);
+
   useEffect(()=>{
     fetch('http://localhost:4000/data',{
       method: 'GET',
@@ -32,7 +33,7 @@ export default function Profile() {
         <button>Search</button>
       </div>
       <div id='content-box'>
-        <div className="contents" id=''>
+        <div id='content-header'>
           <p>
             <b>Title</b>
           </p>
@@ -44,7 +45,7 @@ export default function Profile() {
           </div>
         </div>
         {passwords.map((item)=>{
-          return <Item password={item.pass} note={item.title} key={item._id}/>
+          return <Item password={item.pass} title={item.title} note={item.note} key={item._id}/>
         })}
       </div>
     </>

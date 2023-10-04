@@ -95,7 +95,8 @@
     width: 100%;
 }
 
-.contents{
+
+#content-header{
     display: flex;
     flex-direction: row;
     /* justify-content: space-around; */
@@ -107,12 +108,33 @@
     background-color: rgb(181, 197, 197);
     border-radius: 20px;
 }
-.contents p{
+
+.contents-container{
+    width: 1000px;
+
+    margin: 10px auto;
+    border: 2px solid rgb(4, 4, 4);
+    /* height: 50px; */
+    /* background-color: rgb(210, 210, 211); */
+    background-color: rgb(181, 197, 197);
+    border-radius: 20px;
+    /* display: flex;
+    flex-direction: column; */
+}
+
+.contents{
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-around; */
+    width: 100%;
+}
+.contents p, #content-header p{
     width: 40%;
     margin: auto;
     text-align: center;
+    margin-top: 10px;
 }
-.contents .showButton{
+.contents .showButton, #content-header .showButton{
     width: 20%;
     margin: auto;
 }
@@ -128,21 +150,43 @@
 .pass {
     border-radius: 10px;
     background-color:white ;
-    font-size: 20px;
+    font-size: 16px;
+}
+
+.notes{
+    display: flex;
+    margin-top: 10px;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.notes p{
+    background-color: rgb(167, 173, 173);
+    margin: 10px 20px;
+    padding: 10px 10px;
+    border-radius: 20px;
+    font-size: 15px;
+}
+
+.notes button{
+    margin: auto 20px;
+    background-color: rgb(214, 227, 227);
+    border: 0px;
+    border-radius: 50%;
+    
 }
 
 @media screen and (max-width:1200px) {
-    .contents{
+    .contents-container, #content-header{
         width: 700px;
     }
 }
 @media screen and (max-width:1000px) {
-    .contents{
+    .contents-container, #content-header{
         width: 500px;
     }
 }
 @media screen and (max-width:700px) {
-    .contents{
+    .contents-container, #content-header{
         width: 300px;
     }
 }
