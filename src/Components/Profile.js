@@ -21,7 +21,7 @@ export default function Profile() {
       <div id='content-box'>
         <div className="contents" id=''>
           <p>
-            <b>Note</b>
+            <b>Title</b>
           </p>
           <p>
             <b>Password</b>

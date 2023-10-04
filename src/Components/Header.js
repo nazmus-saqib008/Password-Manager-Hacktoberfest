@@ -15,7 +15,7 @@ export default function Header(){
     }).then(response=>{
         response.json().then(info=>{
         setUserInfo(info);
-        console.log(info);
+        // console.log(info);
         })
     })
     },[])
@@ -26,14 +26,14 @@ export default function Header(){
             credentials: 'include',
         })
         setUserInfo();
-        console.log(userInfo);
+        // console.log(userInfo);
     }
     const [username, setUsername]= useState();
     useEffect(()=>{
 
         // const username= userInfo?.username;
         setUsername(userInfo?.username);
-        console.log(userInfo);
+        // console.log(userInfo);
     },[logout, userInfo])
     return(
         <div id="profile">

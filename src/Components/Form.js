@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import './Form.css'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { UserContext } from '../UserContext';
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 
 function Form() {
     const [smallLetter, setSmallLetter] = useState("");
@@ -17,7 +18,6 @@ function Form() {
 
     function smallLetterSet(){
         smallLetter===""?setSmallLetter("abcdefghijklmnopqrstuvwxyz"):setSmallLetter("");
-        console.log("button clicked");
     }
     function numbersSet(){
         numbers===""?setNumbers("0123456789"):setNumbers("");
@@ -50,19 +50,42 @@ function Form() {
     const {userInfo, setUserInfo}= useContext(UserContext);
 
     useEffect(()=>{
-        fetch('http://localhost:4000/profile',{
-            method: 'GET',
-            credentials: 'include',
-        }).then(response=>{
-            response.json().then(info=>{
-            setUserInfo(info);
-            console.log(info);
-            })
+    fetch('http://localhost:4000/profile',{
+        method: 'GET',
+        credentials: 'include',
+    }).then(response=>{
+        response.json().then(info=>{
+        setUserInfo(info);
+        console.log(info);
         })
-        },[])
+    })
+    },[])
 
-    function savePass(){
+    const [redirect, setRedirect]= useState(false);
 
+    async function savePass(ev){
+        ev.preventDefault();
+        // const data= new FormData();
+        // data.set('title', title);
+        // data.set('note', summary);
+        // data.set('pass',final);
+        const data=JSON.stringify({"title": title, "note": summary, "pass": final});
+        const response = await fetch('http://localhost:4000/data',{
+            method: 'POST',
+            mode: 'cors',
+            body: data,
+            credentials: 'include',
+            headers: {'Content-Type':'application/json'}
+        })
+        // console.log(await response.json());
+        if(response.ok){
+            alert("Password Saved");
+            setRedirect(true);
+        }
+
+    }
+    if(redirect){
+        return <Redirect to={'/profile'}/>
     }
 
     const user= userInfo?.username;
