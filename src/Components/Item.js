@@ -7,14 +7,14 @@ const Item=({note, password})=> {
     const [display, setDisplay]= useState(["dispB", "dispN"])
     return (
         <div className="contents">
-                <p>
-                {note}
-                </p>
-                <p className='pass'>
-                <span className={display[0]}>************</span>
-                <span className={display[1]}>{password}</span>
-                </p>
-                <div className='showButton'>
+            <p>
+            {note}
+            </p>
+            <p className='pass'>
+            <span className={display[0]}>************</span>
+            <span className={display[1]}>{password}</span>
+            </p>
+            <div className='showButton'>
                 <button onClick={()=>{
                     setShowPass(!showPass);
                     setDisplay(showPass?["dispN", "dispB"]:["dispB", "dispN"])
