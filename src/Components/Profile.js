@@ -2,13 +2,26 @@ import React, { useContext, useEffect, useState } from 'react'
 import './Profile.css'
 import Item from './Item';
 import Header from './Header';
+import { UserContext } from '../UserContext';
 
 export default function Profile() {
-  const passwords=[
-    {note: "gfg", password: "cnkejrnkbfub"},
-    {note: "lc", password:"bchbeyciebi"},
-  ]
-
+  // const passwords=[
+  //   {note: "gfg", password: "cnkejrnkbfub"},
+  //   {note: "lc", password:"bchbeyciebi"},
+  // ]
+  const {userInfo}= useContext(UserContext);
+  const [passwords, setPasswords]= useState([])
+  useEffect(()=>{
+    fetch('http://localhost:4000/data',{
+      method: 'GET',
+      credentials: 'include',
+    }).then(response=>{
+      response.json().then(data=>{
+        console.log(data);
+        setPasswords(data);
+      })
+    })
+  },[])
   
   return (
     <>
@@ -31,7 +44,7 @@ export default function Profile() {
           </div>
         </div>
         {passwords.map((item)=>{
-          return <Item password={item.password} note={item.note} key={item.note}/>
+          return <Item password={item.pass} note={item.title} key={item._id}/>
         })}
       </div>
     </>
