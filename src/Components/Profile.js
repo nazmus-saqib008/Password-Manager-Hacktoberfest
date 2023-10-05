@@ -45,7 +45,7 @@ export default function Profile() {
           </div>
         </div>
         {passwords.map((item)=>{
-          return <Item password={item.pass} title={item.title} note={item.note} key={item._id}/>
+          return <Item password={item.pass} _id={item._id} title={item.title} note={item.note} key={item._id}/>
         })}
       </div>
     </>
