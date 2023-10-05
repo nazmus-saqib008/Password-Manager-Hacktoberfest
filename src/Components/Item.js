@@ -1,10 +1,26 @@
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 
-const Item=({note, password, title})=> {
+const Item=({note, password, title, _id})=> {
     const [showPass, setShowPass]= useState(false);
     const [display, setDisplay]= useState(["dispB", "dispN"])
+    const [redirect, setRedirect]= useState(false);
+    function delItem(ev){
+        fetch(`http://localhost:4000/data/${_id}`,{
+            method: "DELETE",
+        }).then(response=>{
+            response.json().then(feedback=>{
+                console.log(feedback);
+                setRedirect(true);
+                alert("Data Deleted");
+            })
+        })
+    }
+    if(redirect){
+        return <Redirect to={'/profile'}/>
+    }
     return (
         <div className="contents-container">
             <div className="contents">
@@ -39,7 +55,7 @@ const Item=({note, password, title})=> {
             <div className="notes">
                 <p><b>Note: &nbsp;</b>{note}</p>
                 {/* <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas sequi earum incidunt sit distinctio minus officiis, optio ea hic consequatur?</p> */}
-                <button>
+                <button onClick={delItem}>
                     <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 12V17" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M14 12V17" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M4 7H20" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
                 </button>
             </div>
