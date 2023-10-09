@@ -3,6 +3,7 @@ import './Profile.css'
 import Item from './Item';
 import Header from './Header';
 import { UserContext } from '../UserContext';
+const url= require('../serverURL')
 
 export default function Profile() {
   // const passwords=[
@@ -13,7 +14,7 @@ export default function Profile() {
   const [passwords, setPasswords]= useState([]);
 
   useEffect(()=>{
-    fetch('http://localhost:4000/data',{
+    fetch(`${url}/data`,{
       method: 'GET',
       credentials: 'include',
     }).then(response=>{

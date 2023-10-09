@@ -5,11 +5,13 @@ import { UserContext } from '../UserContext';
 import React, { useContext, useEffect, useState } from 'react'
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
+const url= require('../serverURL')
+
 export default function Header(){
 
     const {userInfo, setUserInfo}= useContext(UserContext);
     useEffect(()=>{
-    fetch('http://localhost:4000/profile',{
+    fetch(`${url}/profile`,{
         method: 'GET',
         credentials: 'include',
     }).then(response=>{
@@ -21,7 +23,7 @@ export default function Header(){
     },[])
 
     function logout(){
-        fetch('http://localhost:4000/logout',{
+        fetch(`${url}/logout`,{
             method: 'POST',
             credentials: 'include',
         })

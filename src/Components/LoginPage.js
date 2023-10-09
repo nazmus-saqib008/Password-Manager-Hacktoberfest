@@ -3,6 +3,7 @@ import './UserPage.css'
 import { UserContext } from "../UserContext";
 // import {Navigate} from 'react-router-dom'
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+const url= require('../serverURL')
 
 export default function LoginPage(){
     const [username, setUsername]= useState("");
@@ -14,7 +15,7 @@ export default function LoginPage(){
     async function login(ev){
         console.log("button clicked");
         ev.preventDefault();
-        const response= await fetch('http://localhost:4000/login',{
+        const response= await fetch(`${url}/login`,{
             method:"POST",
             mode: "cors",
             body: JSON.stringify({username, password}),
