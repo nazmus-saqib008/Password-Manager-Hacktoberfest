@@ -1,6 +1,7 @@
 import { useState } from "react";
 import './UserPage.css'
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+const url= require('../serverURL')
 
 export default function RegisterPage(){
 
@@ -11,7 +12,7 @@ export default function RegisterPage(){
     async function register(ev){
         console.log("button clicked");
         ev.preventDefault();
-        const response= await fetch('http://localhost:4000/register',{
+        const response= await fetch(`${url}/register`,{
             method:"POST",
             mode: "cors",
             body: JSON.stringify({username, password}),

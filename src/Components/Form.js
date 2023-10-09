@@ -3,6 +3,7 @@ import './Form.css'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { UserContext } from '../UserContext';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
+const url= require('../serverURL')
 
 function Form() {
     const [smallLetter, setSmallLetter] = useState("");
@@ -50,7 +51,7 @@ function Form() {
     const {userInfo, setUserInfo}= useContext(UserContext);
 
     useEffect(()=>{
-    fetch('http://localhost:4000/profile',{
+    fetch(`${url}/profile`,{
         method: 'GET',
         credentials: 'include',
     }).then(response=>{
@@ -70,7 +71,7 @@ function Form() {
         // data.set('note', summary);
         // data.set('pass',final);
         const data=JSON.stringify({"title": title, "note": summary, "pass": final});
-        const response = await fetch('http://localhost:4000/data',{
+        const response = await fetch(`${url}/data`,{
             method: 'POST',
             mode: 'cors',
             body: data,

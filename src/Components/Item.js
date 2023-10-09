@@ -2,13 +2,14 @@ import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
+const url= require('../serverURL')
 
 const Item=({note, password, title, _id})=> {
     const [showPass, setShowPass]= useState(false);
     const [display, setDisplay]= useState(["dispB", "dispN"])
     const [redirect, setRedirect]= useState(false);
     function delItem(ev){
-        fetch(`http://localhost:4000/data/${_id}`,{
+        fetch(`${url}/data/${_id}`,{
             method: "DELETE",
         }).then(response=>{
             response.json().then(feedback=>{
