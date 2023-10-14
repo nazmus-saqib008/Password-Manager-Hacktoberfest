@@ -11,16 +11,16 @@ export default function Header(){
 
     const {userInfo, setUserInfo}= useContext(UserContext);
     useEffect(()=>{
-    fetch(`${url}/profile`,{
-        method: 'GET',
-        credentials: 'include',
-        mode: 'cors',
-    }).then(response=>{
-        response.json().then(info=>{
-        setUserInfo(info);
-        // console.log(info);
-        })
-    })
+      fetch(`${url}/profile`,{
+          method: 'GET',
+          credentials: 'include',
+          mode: 'cors',
+      }).then(response=>{
+          response.json().then(info=>{
+          setUserInfo(info);
+          // console.log(info);
+          })
+      })
     },[])
 
     function logout(){
