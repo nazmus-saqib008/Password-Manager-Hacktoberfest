@@ -1,3 +1,3 @@
-const url= "http://localhost:4000";
+const url= "https://passmanserver.onrender.com";
 
 module.exports= url;
