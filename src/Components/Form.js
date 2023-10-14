@@ -77,7 +77,7 @@ function Form() {
             mode: 'cors',
             body: data,
             credentials: 'include',
-            // headers: {'Content-Type':'application/json'}
+            headers: {'Content-Type':'application/json'}
         })
         // console.log(await response.json());
         if(response.ok){
