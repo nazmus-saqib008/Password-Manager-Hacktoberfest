@@ -54,6 +54,7 @@ function Form() {
     fetch(`${url}/profile`,{
         method: 'GET',
         credentials: 'include',
+        mode: 'cors',
     }).then(response=>{
         response.json().then(info=>{
         setUserInfo(info);

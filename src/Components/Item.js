@@ -11,6 +11,7 @@ const Item=({note, password, title, _id})=> {
     function delItem(ev){
         fetch(`${url}/data/${_id}`,{
             method: "DELETE",
+            mode: 'cors',
         }).then(response=>{
             response.json().then(feedback=>{
                 console.log(feedback);
