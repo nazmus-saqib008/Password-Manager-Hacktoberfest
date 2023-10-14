@@ -61,7 +61,7 @@ function Form() {
         console.log(info);
         })
     })
-    },[])
+    },[userInfo])
 
     const [redirect, setRedirect]= useState(false);
 
