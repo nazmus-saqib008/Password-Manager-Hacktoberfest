@@ -14,6 +14,7 @@ export default function Header(){
     fetch(`${url}/profile`,{
         method: 'GET',
         credentials: 'include',
+        mode: 'cors',
     }).then(response=>{
         response.json().then(info=>{
         setUserInfo(info);
@@ -26,6 +27,7 @@ export default function Header(){
         fetch(`${url}/logout`,{
             method: 'POST',
             credentials: 'include',
+            mode: 'cors',
         })
         setUserInfo();
         // console.log(userInfo);

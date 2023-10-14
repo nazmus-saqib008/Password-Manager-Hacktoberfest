@@ -17,6 +17,7 @@ export default function Profile() {
     fetch(`${url}/data`,{
       method: 'GET',
       credentials: 'include',
+      mode: 'cors',
     }).then(response=>{
       response.json().then(data=>{
         console.log(data);
