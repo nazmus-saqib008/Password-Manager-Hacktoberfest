@@ -15,6 +15,7 @@ export default function Header(){
           method: 'GET',
           credentials: 'include',
           mode: 'cors',
+          headers: {"Content-Type": "application/json"},
       }).then(response=>{
           response.json().then(info=>{
           setUserInfo(info);
@@ -28,6 +29,7 @@ export default function Header(){
             method: 'POST',
             credentials: 'include',
             mode: 'cors',
+            headers: {"Content-Type": "application/json"},
         })
         setUserInfo();
         // console.log(userInfo);

@@ -55,6 +55,7 @@ function Form() {
             method: 'GET',
             credentials: 'include',
             mode: 'cors',
+            headers: {"Content-Type": "application/json"},
         }).then(response=>{
             response.json().then(info=>{
             setUserInfo(info);
