@@ -24,7 +24,7 @@ export default function Header(){
       })
     },[])
 
-    function logout(){
+    function logout(ev){
         fetch(`${url}/logout`,{
             method: 'POST',
             credentials: 'include',
