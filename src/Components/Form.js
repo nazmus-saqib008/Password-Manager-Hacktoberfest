@@ -75,6 +75,7 @@ function Form() {
         const response = await fetch(`${url}/data`,{
             method: 'POST',
             mode: 'cors',
+            headers: {"Content-Type": "application/json"},
             body: data,
             credentials: 'include',
         })
