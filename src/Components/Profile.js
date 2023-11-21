@@ -12,6 +12,7 @@ export default function Profile() {
   // ]
   const {userInfo}= useContext(UserContext);
   const [passwords, setPasswords]= useState([]);
+  const [searchword, setSearchword]= useState("");
 
   useEffect(()=>{
     fetch(`${url}/data`,{
@@ -25,14 +26,20 @@ export default function Profile() {
       })
     })
   },[])
+
+  function filterSearch() {
+    console.log(searchword);
+  }
+
+  
   
   return (
     <>
       <Header/>
       <div id="searchbar">
         <h6>Saved Passwords: </h6>
-        <input type="text" name="" id="searchWord" />
-        <button>Search</button>
+        <input type="text" name="" value={searchword} onChange={(e)=>{setSearchword(e.target.value)}} id="searchWord" />
+        <button onClick={filterSearch}>Search</button>
       </div>
       <div id='content-box'>
         <div id='content-header'>
