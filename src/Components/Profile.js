@@ -3,6 +3,7 @@ import './Profile.css'
 import Item from './Item';
 import Header from './Header';
 import { UserContext } from '../UserContext';
+import { useCookies } from 'react-cookie';
 const url= require('../serverURL')
 
 export default function Profile() {
@@ -13,18 +14,21 @@ export default function Profile() {
   const {userInfo}= useContext(UserContext);
   const [passwords, setPasswords]= useState([]);
   const [searchword, setSearchword]= useState("");
+  const [cookies, setCookies]= useCookies();
 
   useEffect(()=>{
     fetch(`${url}/data`,{
       method: 'GET',
       credentials: 'include',
       mode: 'cors',
+      headers: {"Content-Type": "application/json"},
     }).then(response=>{
       response.json().then(data=>{
         console.log(data);
         setPasswords(data);
       })
     })
+
   },[])
 
   function filterSearch() {
