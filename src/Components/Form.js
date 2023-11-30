@@ -3,6 +3,7 @@ import './Form.css'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import { UserContext } from '../UserContext';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
+import {useCookies} from 'react-cookie'
 const url= require('../serverURL')
 
 function Form() {
@@ -48,19 +49,24 @@ function Form() {
         setFinal(shortPass+passWord);
     }
 
+    const[cookies, setCookies]= useCookies();
     const {userInfo, setUserInfo}= useContext(UserContext);
 
     useEffect(()=>{
-    fetch(`${url}/profile`,{
-        method: 'GET',
-        credentials: 'include',
-        mode: 'cors',
-    }).then(response=>{
-        response.json().then(info=>{
-        setUserInfo(info);
-        console.log(info);
-        })
-    })
+        if(cookies.token){
+            fetch(`${url}/profile`,{
+                method: 'GET',
+                credentials: 'include',
+                mode: 'cors',
+                headers: {"Content-Type": "application/json"},
+            }).then(response=>{
+                response.json().then(info=>{
+                setUserInfo(info);
+                console.log(info);
+                })
+            })
+
+        }
     },[])
 
     const [redirect, setRedirect]= useState(false);
@@ -75,9 +81,9 @@ function Form() {
         const response = await fetch(`${url}/data`,{
             method: 'POST',
             mode: 'cors',
+            headers: {"Content-Type": "application/json"},
             body: data,
             credentials: 'include',
-            headers: {'Content-Type':'application/json'}
         })
         // console.log(await response.json());
         if(response.ok){
@@ -137,11 +143,13 @@ function Form() {
                         onChange={(ev)=>{
                             setSummary(ev.target.value)
                         }}/>
-                    {user && (
+                    {/* {user && ( */}
+                    {cookies.token && (
                         <button type='submit'>Save</button>
 
                     )}
-                    {!user && (
+                    {/* {!user && ( */}
+                    {!cookies.token && (
                         <Link to={'/login'}>
                             Sign In First
                         </Link>

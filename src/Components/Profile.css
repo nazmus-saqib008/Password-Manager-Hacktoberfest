@@ -150,7 +150,7 @@
 .pass {
     border-radius: 10px;
     background-color:white ;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 .notes{
@@ -189,11 +189,4 @@
     .contents-container, #content-header{
         width: 300px;
     }
-}
-
-.dispB{
-    display: block;
-}
-.dispN{
-    display: none;
 }

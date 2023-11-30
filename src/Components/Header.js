@@ -4,30 +4,37 @@ import {
 import { UserContext } from '../UserContext';
 import React, { useContext, useEffect, useState } from 'react'
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+import {useCookies} from 'react-cookie'
 
 const url= require('../serverURL')
 
 export default function Header(){
+    const [cookies, setCookies]= useCookies();
 
     const {userInfo, setUserInfo}= useContext(UserContext);
     useEffect(()=>{
-    fetch(`${url}/profile`,{
-        method: 'GET',
-        credentials: 'include',
-        mode: 'cors',
-    }).then(response=>{
-        response.json().then(info=>{
-        setUserInfo(info);
-        // console.log(info);
+      
+      if(cookies){
+        fetch(`${url}/profile`,{
+            method: 'GET',
+            credentials: 'include',
+            mode: 'cors',
+            headers: {"Content-Type": "application/json"},
+        }).then(response=>{
+            response.json().then(info=>{
+            setUserInfo(info);
+            // console.log(info);
+            })
         })
-    })
+      }
     },[])
 
-    function logout(){
+    function logout(ev){
         fetch(`${url}/logout`,{
             method: 'POST',
             credentials: 'include',
             mode: 'cors',
+            headers: {"Content-Type": "application/json"},
         })
         setUserInfo();
         // console.log(userInfo);
