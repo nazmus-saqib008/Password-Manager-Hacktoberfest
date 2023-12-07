@@ -37,7 +37,6 @@ export default function Header(){
             headers: {"Content-Type": "application/json"},
         })
         setUserInfo();
-        setCookies();
         // console.log(userInfo);
     }
     const [username, setUsername]= useState();

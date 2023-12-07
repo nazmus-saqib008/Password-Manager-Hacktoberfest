@@ -29,7 +29,7 @@ export default function Profile() {
       })
     })
 
-  },[])
+  },[userInfo])
 
   function filterSearch() {
     console.log(searchword);
