@@ -13,9 +13,13 @@ export default function Profile() {
   const {userInfo}= useContext(UserContext);
   const [passwords, setPasswords]= useState([]);
   const [searchword, setSearchword]= useState("");
+  const [username, setUsername]= useState(null);
+  useEffect(()=>{
+    setUsername= userInfo?.username;
+  },[userInfo])
 
   useEffect(()=>{
-    if(userInfo){
+    if(username){
       fetch(`${url}/data`,{
         method: 'GET',
         credentials: 'include',
@@ -30,7 +34,7 @@ export default function Profile() {
 
     }
 
-  },[userInfo])
+  },[username])
 
   function filterSearch() {
     console.log(searchword);
