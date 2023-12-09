@@ -49,7 +49,7 @@ function Form() {
         setFinal(shortPass+passWord);
     }
 
-    const[cookies, setCookies]= useCookies();
+    const[cookies, setCookies]= useCookies(document.cookie);
     const {userInfo, setUserInfo}= useContext(UserContext);
 
     useEffect(()=>{
@@ -70,6 +70,7 @@ function Form() {
     },[])
 
     const [redirect, setRedirect]= useState(false);
+    const [toLogin, setToLogin]= useState(false);
 
     async function savePass(ev){
         ev.preventDefault();
@@ -77,23 +78,32 @@ function Form() {
         // data.set('title', title);
         // data.set('note', summary);
         // data.set('pass',final);
-        const data=JSON.stringify({"title": title, "note": summary, "pass": final});
-        const response = await fetch(`${url}/data`,{
-            method: 'POST',
-            mode: 'cors',
-            headers: {"Content-Type": "application/json"},
-            body: data,
-            credentials: 'include',
-        })
-        // console.log(await response.json());
-        if(response.ok){
-            alert("Password Saved");
-            setRedirect(true);
+        if(!userInfo){
+            alert("Login to Save Password");
+            setToLogin(true);
+        }else{
+            const data=JSON.stringify({"title": title, "note": summary, "pass": final});
+            const response = await fetch(`${url}/data`,{
+                method: 'POST',
+                mode: 'cors',
+                headers: {"Content-Type": "application/json"},
+                body: data,
+                credentials: 'include',
+            })
+            // console.log(await response.json());
+            if(response.ok){
+                alert("Password Saved");
+                setRedirect(true);
+            }
         }
 
     }
     if(redirect){
         return <Redirect to={'/profile'}/>
+    }
+
+    if(toLogin){
+        return <Redirect to={'/login'}/>
     }
 
     const user= userInfo?.username;
@@ -142,18 +152,12 @@ function Form() {
                         placeholder='add note (if any)'
                         onChange={(ev)=>{
                             setSummary(ev.target.value)
-                        }}/>
-                    {/* {user && ( */}
-                    {cookies.token && (
-                        <button type='submit'>Save</button>
+                        }}
+                    />
+                    
+                    <button type='submit'>Save</button>
 
-                    )}
-                    {/* {!user && ( */}
-                    {!cookies.token && (
-                        <Link to={'/login'}>
-                            Sign In First
-                        </Link>
-                    )}
+                    
                 </form>
 
             </div>

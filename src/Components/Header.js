@@ -9,12 +9,12 @@ import {useCookies} from 'react-cookie'
 const url= require('../serverURL')
 
 export default function Header(){
-    const [cookies, setCookies]= useCookies();
+    const [cookies, setCookies]= useCookies(document.cookie);
 
     const {userInfo, setUserInfo}= useContext(UserContext);
     useEffect(()=>{
       
-      if(cookies){
+      if(!userInfo){
         fetch(`${url}/profile`,{
             method: 'GET',
             credentials: 'include',
@@ -37,6 +37,7 @@ export default function Header(){
             headers: {"Content-Type": "application/json"},
         })
         setUserInfo();
+        setCookies();
         // console.log(userInfo);
     }
     const [username, setUsername]= useState();
