@@ -35,8 +35,14 @@ export default function Header(){
             credentials: 'include',
             mode: 'cors',
             headers: {"Content-Type": "application/json"},
+        }).then(()=>{
+          setUserInfo(); 
+          caches.keys().then((names) => {
+            names.forEach((name) => {
+                caches.delete(name);
+            });
+          });         
         })
-        setUserInfo();
         // setCookies(document.cookie);
         // console.log(userInfo);
     }
