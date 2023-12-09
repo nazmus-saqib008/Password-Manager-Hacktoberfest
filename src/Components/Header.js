@@ -29,6 +29,7 @@ export default function Header(){
       // }
     },[])
 
+
     function logout(ev){
         fetch(`${url}/logout`,{
             method: 'POST',
@@ -37,6 +38,7 @@ export default function Header(){
             headers: {"Content-Type": "application/json"},
         })
         setUserInfo(null);
+        localStorage.removeItem('token');
         // setCookies(document.cookie);
         // console.log(userInfo);
     }
