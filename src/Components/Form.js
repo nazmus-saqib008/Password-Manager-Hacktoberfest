@@ -53,7 +53,7 @@ function Form() {
     const {userInfo, setUserInfo}= useContext(UserContext);
 
     useEffect(()=>{
-        if(cookies.token){
+        if(userInfo.username){
             fetch(`${url}/profile`,{
                 method: 'GET',
                 credentials: 'include',
@@ -78,9 +78,9 @@ function Form() {
         // data.set('title', title);
         // data.set('note', summary);
         // data.set('pass',final);
-        if(!userInfo){
-            alert("Login to Save Password");
+        if(!userInfo.username){
             setToLogin(true);
+            alert("Login to Save Password");
         }else{
             const data=JSON.stringify({"title": title, "note": summary, "pass": final});
             const response = await fetch(`${url}/data`,{
