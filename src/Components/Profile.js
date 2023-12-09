@@ -15,7 +15,7 @@ export default function Profile() {
   const [searchword, setSearchword]= useState("");
   const [username, setUsername]= useState(null);
   useEffect(()=>{
-    setUsername= userInfo?.username;
+    setUsername(userInfo?.username);
   },[userInfo])
 
   useEffect(()=>{
